@@ -22,6 +22,7 @@ class TaskFormTests(TestCase):
                 "deadline": timezone.now() + timedelta(hours=1),
             }
         )
+        self.assertTrue(form.is_valid())
 
     def test_task_form_invalid(self):
         form = TaskForm(
@@ -30,6 +31,7 @@ class TaskFormTests(TestCase):
                 "deadline": timezone.now() - timedelta(hours=1),
             }
         )
+        self.assertFalse(form.is_valid())
 
 
 class TaskViewsTests(TestCase):
