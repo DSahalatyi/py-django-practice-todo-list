@@ -1,3 +1,13 @@
 from django.db import models
 
-# Create your models here.
+
+class Task(models.Model):
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    deadline = models.DateTimeField(null=True, blank=True)
+    is_done = models.BooleanField(default=False)
+    tags = models.ManyToManyField("Tag")
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=50)
