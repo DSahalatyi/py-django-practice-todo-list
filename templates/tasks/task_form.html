@@ -3,10 +3,23 @@
 
 {% block content %}
   <h1>{{ object|yesno:"Update,Create" }} Task</h1>
+  {{ form.media.css }}
   <form action="" method="post">
     {% csrf_token %}
-    {{ form|crispy }}
+    <div class="form-group">
+      {{ form.content|as_crispy_field }}
+    </div>
 
+    <div class="form-group">
+      {{ form.deadline|as_crispy_field }}
+    </div>
+
+    <div class="form-group">
+      {{ form.tags.label_tag }}<br>
+      {{ form.tags }}
+    </div>
     <input type="submit" value="Submit" class="btn btn-primary">
   </form>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  {{ form.media.js }}
 {% endblock %}
