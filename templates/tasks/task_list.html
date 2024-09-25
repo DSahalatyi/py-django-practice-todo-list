@@ -2,15 +2,33 @@
 {% load crispy_forms_filters %}
 
 {% block content %}
-  <h1>
+  <h1 class>
     TODO list
     <a href="{% url 'tasks:task-create' %}" class="btn btn-primary link-to-page">
       Add task
     </a>
   </h1>
-    {% for task in task_list %}
-    {{ task.content }} | {{ task.is_done }}
-    {{ task.created_at }}
-    <br>
+  {% for task in task_list %}
+    <div class="card mb-0">
+      <div class="card-body pb-1">
+        <h5 class="card-title">{{ task.content }}
+          {% if task.is_done %}<strong class="text-success">Done</strong>
+          {% else %}<strong class="text-danger strong">Not done</strong>
+          {% endif %}
+        </h5>
+        <small>Created: {{ task.created_at }}</small>
+        <small class="text-danger">
+          {% if task.deadline %}
+            Deadline: {{ task.deadline }}
+          {% endif %}
+        </small>
+        {% if task.tags.count > 0 %}
+          <p class="text-muted p-0 mt-3 mb-0">Tags: {{ task.tags.all|join:" " }}</p>
+        {% endif %}
+      <br>
+        <a href="#">Update</a>
+        <a href="#">Delete</a>
+      </div>
+    </div>
   {% endfor %}
 {% endblock %}
